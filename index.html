@@ -5,136 +5,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>浙江省2026年中考倒计时</title>
   <style>
-    :root { --bg:#0b1220; --card:#111a2e; --text:#e9eefc; --muted:#a9b3d1; }
+    :root{
+      --bg:#0b1220;
+      --text:#eef2ff;
+      --muted: rgba(238,242,255,0.75);
+      --card: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+    }
+    *{ box-sizing:border-box; }
     body{
-      margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
-      font-family: system-ui, -apple-system, "PingFang SC","Microsoft YaHei", Arial, sans-serif;
-      background: radial-gradient(1200px 800px at 20% 10%, #1b2a52 0%, var(--bg) 45%),
-                  radial-gradient(900px 700px at 90% 80%, #2a1b52 0%, var(--bg) 50%);
-      color:var(--text);
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       padding:24px;
-      box-sizing:border-box;
+      font-family: system-ui, -apple-system, "PingFang SC","Microsoft YaHei", Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 720px at 18% 10%, rgba(91, 128, 255, 0.35) 0%, rgba(11,18,32,0) 55%),
+        radial-gradient(900px 650px at 88% 85%, rgba(196, 93, 255, 0.30) 0%, rgba(11,18,32,0) 55%),
+        linear-gradient(180deg, rgba(18, 28, 54, 0.45) 0%, var(--bg) 60%),
+        var(--bg);
     }
     .card{
-      width:min(720px, 100%);
-      background: rgba(17,26,46,0.78);
-      border:1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 18px 60px rgba(0,0,0,0.35);
-      border-radius:20px;
-      padding:26px 22px;
-      backdrop-filter: blur(10px);
+      width:min(760px, 100%);
+      background: rgba(17,26,46,0.55);
+      border:1px solid var(--border);
+      border-radius:22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      padding: 26px 22px 22px;
     }
-    h1{ margin:0 0 10px; font-size: clamp(22px, 3vw, 30px); letter-spacing:0.5px;}
-    .subtitle{ color:var(--muted); line-height:1.55; margin-bottom:18px; }
-    .grid{
-      display:grid; gap:14px;
-      grid-template-columns: repeat(2, minmax(0,1fr));
+    .title{
+      font-size: clamp(20px, 2.6vw, 28px);
+      font-weight: 850;
+      letter-spacing: .6px;
+      margin:0 0 8px;
     }
-    @media (max-width:560px){ .grid{ grid-template-columns: 1fr; } }
-    .panel{
-      background: rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.10);
-      border-radius:16px;
-      padding:14px 14px 16px;
+    .sub{
+      margin:0 0 18px;
+      color:var(--muted);
+      line-height:1.6;
+      font-size: 14px;
     }
-    .label{ color:var(--muted); font-size:14px; margin-bottom:8px; }
-    .big{
+    .count{
+      display:flex;
+      align-items:baseline;
+      gap:12px;
+      padding: 18px 18px;
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: 18px;
+    }
+    .num{
       font-variant-numeric: tabular-nums;
-      font-size: clamp(26px, 4.2vw, 42px);
-      font-weight: 750;
-      letter-spacing: 0.8px;
+      font-weight: 900;
+      font-size: clamp(54px, 7vw, 86px);
+      letter-spacing: 1px;
+      line-height: 1;
     }
-    .row{
-      display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;
-      color:var(--muted); font-size:14px; font-variant-numeric: tabular-nums;
+    .unit{
+      font-size: clamp(18px, 2.4vw, 24px);
+      font-weight: 800;
+      opacity: .92;
     }
-    .pill{
-      padding:6px 10px; border-radius:999px;
-      background: rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.10);
+    .hint{
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
     }
-    .footer{
-      margin-top:16px; color:var(--muted); font-size:13px; line-height:1.6;
-    }
-    .ok{ color:#8ef0c6; }
-    .warn{ color:#ffd37a; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>浙江省 2026 年中考倒计时</h1>
-    <div class="subtitle">
-      中考日期：<b>2026 年 6 月 20 日</b> 与 <b>2026 年 6 月 21 日</b>（按中国标准时间 CST / Asia/Shanghai 计算）
+  <div class="card" role="region" aria-label="中考倒计时">
+    <h1 class="title">中考倒计时</h1>
+    <p class="sub">距离 <b>2026 年浙江省中考（6 月 20 日开考）</b> 还有</p>
+
+    <div class="count">
+      <div class="num" id="days">—</div>
+      <div class="unit">天</div>
     </div>
 
-    <div class="grid">
-      <div class="panel">
-        <div class="label">距离中考开始（6/20 00:00）</div>
-        <div class="big" id="toStart">—</div>
-        <div class="row" id="toStartParts"></div>
-      </div>
-
-      <div class="panel">
-        <div class="label">距离中考结束（6/21 23:59:59）</div>
-        <div class="big" id="toEnd">—</div>
-        <div class="row" id="toEndParts"></div>
-      </div>
-    </div>
-
-    <div class="footer" id="statusLine">—</div>
+    <div class="hint" id="hint">—</div>
   </div>
 
 <script>
 (function(){
-  // Use Asia/Shanghai explicitly to avoid client timezone differences.
-  const tz = "Asia/Shanghai";
-  const start = new Date("2026-06-20T00:00:00+08:00");
-  const end   = new Date("2026-06-21T23:59:59+08:00");
-
-  const elStart = document.getElementById("toStart");
-  const elStartParts = document.getElementById("toStartParts");
-  const elEnd = document.getElementById("toEnd");
-  const elEndParts = document.getElementById("toEndParts");
-  const statusLine = document.getElementById("statusLine");
-
-  function pad2(n){ return String(n).padStart(2,"0"); }
-
-  function diffParts(ms){
-    const sign = ms < 0 ? -1 : 1;
-    ms = Math.abs(ms);
-    const sec = Math.floor(ms/1000);
-    const days = Math.floor(sec / 86400);
-    const rem1 = sec % 86400;
-    const hours = Math.floor(rem1 / 3600);
-    const rem2 = rem1 % 3600;
-    const mins = Math.floor(rem2 / 60);
-    const secs = rem2 % 60;
-    return {sign, days, hours, mins, secs};
-  }
-
-  function renderParts(container, p){
-    container.innerHTML = "";
-    const items = [
-      `${p.days} 天`,
-      `${pad2(p.hours)} 时`,
-      `${pad2(p.mins)} 分`,
-      `${pad2(p.secs)} 秒`
-    ];
-    for(const t of items){
-      const s = document.createElement("span");
-      s.className = "pill";
-      s.textContent = t;
-      container.appendChild(s);
-    }
-  }
-
-  function formatBig(p){
-    return `${p.days} 天 ${pad2(p.hours)}:${pad2(p.mins)}:${pad2(p.secs)}`;
-  }
+  // 目标：只显示“距离开考还剩多少天”（仿 useful-tools.top 的显示逻辑：大数字 + “天”）
+  // 以中国标准时间 CST / Asia/Shanghai 计算到 2026-06-20 00:00:00
+  const target = new Date("2026-06-20T00:00:00+08:00");
+  const daysEl = document.getElementById("days");
+  const hintEl = document.getElementById("hint");
 
   function fmtShanghai(d){
     const f = new Intl.DateTimeFormat("zh-CN", {
-      timeZone: tz, year:"numeric", month:"2-digit", day:"2-digit",
+      timeZone: "Asia/Shanghai",
+      year:"numeric", month:"2-digit", day:"2-digit",
       hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false
     });
     return f.format(d).replaceAll("/", "-");
@@ -142,31 +111,23 @@
 
   function tick(){
     const now = new Date();
-    const toStart = start - now;
-    const toEnd = end - now;
+    const diffMs = target - now;
 
-    const pStart = diffParts(toStart);
-    const pEnd = diffParts(toEnd);
+    // “还剩多少天”：向上取整，让当天显示 0 天（已到开考时刻及之后）
+    let days = Math.ceil(diffMs / 86400000);
+    if (diffMs <= 0) days = 0;
 
-    elStart.textContent = (toStart >= 0) ? formatBig(pStart) : `已开始 ${formatBig(pStart)}`;
-    renderParts(elStartParts, pStart);
+    daysEl.textContent = String(days);
 
-    elEnd.textContent = (toEnd >= 0) ? formatBig(pEnd) : `已结束 ${formatBig(pEnd)}`;
-    renderParts(elEndParts, pEnd);
-
-    let status = `当前时间（${tz}）：${fmtShanghai(now)}。`;
-    if (now < start){
-      status += ` <span class="warn">加油！距离开考还有一段时间。</span>`;
-    } else if (now >= start && now <= end){
-      status += ` <span class="ok">正在考试期间，稳住节奏！</span>`;
-    } else {
-      status += ` <span class="ok">考试已结束，辛苦啦！</span>`;
+    if(diffMs > 0){
+      hintEl.textContent = `当前时间（Asia/Shanghai）：${fmtShanghai(now)}。`;
+    }else{
+      hintEl.textContent = `已到开考日（Asia/Shanghai）：${fmtShanghai(now)}。`;
     }
-    statusLine.innerHTML = status;
   }
 
   tick();
-  setInterval(tick, 250);
+  setInterval(tick, 1000);
 })();
 </script>
 </body>
