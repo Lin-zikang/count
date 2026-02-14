@@ -10,8 +10,10 @@
     *{ box-sizing:border-box; margin:0; padding:0; }
     html, body{
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100%;
+      /* 仅开启竖直滑动，禁止横向滚动 */
+      overflow-x: hidden;
+      overflow-y: auto;
     }
     :root{
       /* 动态颜色变量，随剩余天数自动渐变 */
@@ -29,7 +31,7 @@
       --shadow: 0 18px 60px rgba(0,0,0,0.35);
     }
     body{
-      height: 100dvh;
+      min-height: 100dvh;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -44,12 +46,12 @@
         var(--bg);
       transition: background 0.5s ease;
     }
-    /* 全屏卡片，占满页面98%以上空间 */
+    /* 全屏卡片，最小高度撑满视口，支持内容超出滑动 */
     .card{
       width: 100%;
-      height: 100%;
+      min-height: calc(100dvh - clamp(8px, 2vw, 16px) * 2);
       max-width: 1600px;
-      max-height: 1000px;
+      max-height: none;
       background: var(--card-bg);
       border:1px solid hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.3);
       border-radius:28px;
@@ -77,7 +79,7 @@
       line-height:1.6;
       font-size: clamp(14px, 2.5vw, 18px);
     }
-    /* 核心倒计时区域，占页面70%以上空间 */
+    /* 核心倒计时区域，占页面主要空间 */
     .count{
       flex: 1;
       display:flex;
